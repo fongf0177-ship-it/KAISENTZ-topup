@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaisentz Topup</title>
+    <!-- ប្រើប្រាស់ FontAwesome សម្រាប់រូបតំណាង (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* កំណត់ពណ៌ Theme (Light & Dark) */
+        :root {
+            --bg-color: #f0f2f5;
+            --text-color: #111111;
+            --nav-bg: #ffffff;
+            --shadow-light: #ffffff;
+            --shadow-dark: #d1d9e6;
+            --primary: #000000;
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #1a1a2e;
+            --text-color: #e6e6e6;
+            --nav-bg: #16213e;
+            --shadow-light: #1f2e54;
+            --shadow-dark: #0f1528;
+            --primary: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* រចនាផ្នែក Header ខាងលើ ដូចក្នុងរូបភាព */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: var(--nav-bg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-bottom: 2px solid #ccc; /* បន្ទាត់ពីក្រោម */
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* រចនា Logo ដែលបានផ្ដល់ឱ្យ */
+        .brand img {
+            width: 60px;
+            border-radius: 12px;
+            box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-text h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-text h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* រចនាប៊ូតុង Icon ជាលក្ខណៈ 3D អណ្តែត */
+        .icon-btn {
+            background: var(--nav-bg);
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--text-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-btn:active {
+            box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+        }
+
+        /* ផ្នែកកណ្តាល សម្រាប់ទម្រង់ 3D Form */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 75vh;
+            padding: 20px;
+        }
+
+        /* រចនា Form ជា 3D Quality (Neumorphism Effect) */
+        .form-3d {
+            background-color: var(--nav-bg);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 10px 10px 30px var(--shadow-dark), -10px -10px 30px var(--shadow-light);
+            transform: perspective(1000px) rotateX(2deg);
+            transition: transform 0.4s ease;
+        }
+
+        .form-3d:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+        }
+
+        .form-3d h3 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 22px;
+        }
+
+        /* ប្រអប់វាយបញ្ចូលអត្ថបទ 3D ផតចូលក្នុង */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+            outline: none;
+            box-sizing: border-box;
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        /* ប៊ូតុង Submit 3D អណ្តែត */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background-color: var(--primary);
+            color: var(--bg-color);
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 5px 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ផ្នែកខាងលើ (Header) -->
+    <header>
+        <div class="brand">
+            <!-- ប្រើប្រាស់តំណ Logo ដែលអ្នកបានផ្តល់ឲ្យ -->
+            <img src="https://img.sanishtech.com/u/ebb07bbd6a7c9e119fbd00e6aea6df25.png" alt="Kaisentz Logo">
+            <div class="brand-text">
+                <h1>KAISENTZ</h1>
+                <h2>TOPUP</h2>
+            </div>
+        </div>
+        <div class="nav-actions">
+            <!-- ប៊ូតុងបិទបើកពន្លឺ (Dark Mode Toggle) -->
+            <button class="icon-btn" onclick="toggleTheme()" title="ប្តូរពណ៌ងងឹត/ភ្លឺ">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+            </button>
+            <!-- ប៊ូតុង User Profile -->
+            <button class="icon-btn" title="គណនី">
+                <i class="fa-regular fa-circle-user"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ផ្នែកទម្រង់ 3D Quality -->
+    <div class="container">
+        <div class="form-3d">
+            <h3>បញ្ចូលទឹកប្រាក់ (Topup)</h3>
+            <div class="input-group">
+                <input type="text" placeholder="បញ្ចូល User ID">
+            </div>
+            <div class="input-group">
+                <input type="number" placeholder="ចំនួនទឹកប្រាក់">
+            </div>
+            <button class="submit-btn">បញ្ចូលប្រាក់</button>
+        </div>
+    </div>
+
+    <!-- Script សម្រាប់ប្តូរ Dark Mode និង Light Mode -->
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme'); // ប្តូរទៅ Light Mode
+            } else {
+                body.setAttribute('data-theme', 'dark'); // ប្តូរទៅ Dark Mode
+            }
+        }
+    </script>
+</body>
+</html>
